@@ -1,0 +1,159 @@
+/* =========================================================
+   WORLD CUP 2026 SWEEPSTAKE — "Floodlit Night Match" theme
+   Display: Anton (condensed broadcast) · Body: Archivo
+   ========================================================= */
+
+:root {
+  --ink:        #07120d;   /* deep pitch-green black */
+  --ink-2:      #0c1d15;   /* panel */
+  --ink-3:      #122a1f;   /* raised panel */
+  --line:       #1d3a2c;   /* hairline borders */
+  --turf:       #1f8a4c;   /* pitch green */
+  --turf-dim:   #16623a;
+  --signal:     #d4ff3f;   /* electric lime accent */
+  --signal-dim: #a9cc2f;
+  --chalk:      #f3f7f0;   /* warm white */
+  --muted:      #8aa399;   /* muted green-grey text */
+  --warn:       #ff6b4a;
+  --radius:     14px;
+  --shadow:     0 18px 50px rgba(0,0,0,.45);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; margin: 0; }
+
+body {
+  font-family: 'Archivo', system-ui, sans-serif;
+  color: var(--chalk);
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(31,138,76,.20), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(212,255,63,.07), transparent 55%),
+    var(--ink);
+  /* subtle pitch stripes */
+  background-color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* faint vertical pitch stripes overlay */
+#root::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    90deg, rgba(255,255,255,0.012) 0 60px, transparent 60px 120px);
+  pointer-events: none; z-index: 0;
+}
+
+h1,h2,h3,.display {
+  font-family: 'Anton', 'Archivo', sans-serif;
+  font-weight: 400;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  line-height: .95;
+  margin: 0;
+}
+
+a { color: var(--signal); }
+
+/* ---------- layout ---------- */
+.shell { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+
+.brandbar {
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--line); padding-bottom: 18px; margin-bottom: 26px;
+}
+.brandbar .kicker {
+  font-family: 'Archivo'; font-weight: 800; letter-spacing: .28em;
+  text-transform: uppercase; font-size: 11px; color: var(--signal);
+}
+.brandbar h1 { font-size: clamp(34px, 6vw, 64px); color: var(--chalk); }
+.brandbar h1 em { color: var(--signal); font-style: normal; }
+.brandbar .whoami { margin-left: auto; text-align: right; font-size: 13px; color: var(--muted); }
+.brandbar .whoami b { color: var(--chalk); display: block; font-size: 15px; }
+
+/* ---------- cards / panels ---------- */
+.panel {
+  background: linear-gradient(180deg, var(--ink-2), var(--ink));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- auth ---------- */
+.auth-wrap { min-height: 100vh; display: grid; place-items: center; position: relative; z-index: 1; padding: 24px; }
+.auth-card { width: 100%; max-width: 420px; padding: 38px 34px; }
+.auth-card .kicker {
+  font-weight: 800; letter-spacing: .28em; text-transform: uppercase;
+  font-size: 11px; color: var(--signal); margin-bottom: 10px;
+}
+.auth-card h1 { font-size: 46px; margin-bottom: 6px; }
+.auth-card h1 em { color: var(--signal); font-style: normal; }
+.auth-card .sub { color: var(--muted); font-size: 14px; margin-bottom: 26px; }
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
+}
+.field input {
+  width: 100%; padding: 13px 15px; font-size: 15px; font-family: inherit;
+  color: var(--chalk); background: var(--ink-3); border: 1px solid var(--line);
+  border-radius: 10px; outline: none; transition: border-color .15s, box-shadow .15s;
+}
+.field input:focus { border-color: var(--turf); box-shadow: 0 0 0 3px rgba(31,138,76,.25); }
+
+.btn {
+  width: 100%; padding: 14px; font-family: 'Anton', sans-serif; font-size: 18px;
+  letter-spacing: .04em; text-transform: uppercase; color: var(--ink);
+  background: var(--signal); border: none; border-radius: 10px; cursor: pointer;
+  transition: transform .08s, background .15s;
+}
+.btn:hover { background: var(--signal-dim); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.secondary { background: transparent; color: var(--signal); border: 1px solid var(--turf); }
+.btn.secondary:hover { background: rgba(31,138,76,.12); }
+
+.switcher { margin-top: 18px; text-align: center; font-size: 13px; color: var(--muted); }
+.switcher button {
+  background: none; border: none; color: var(--signal); font: inherit;
+  cursor: pointer; text-decoration: underline; padding: 0;
+}
+
+.notice { padding: 11px 14px; border-radius: 9px; font-size: 13.5px; margin-bottom: 16px; }
+.notice.err { background: rgba(255,107,74,.12); border: 1px solid var(--warn); color: #ffb3a3; }
+.notice.ok  { background: rgba(31,138,76,.14); border: 1px solid var(--turf); color: #b6f0cf; }
+
+/* ---------- holding screen ---------- */
+.holding { text-align: center; padding: 60px 24px; }
+.holding .big { font-size: clamp(40px, 8vw, 84px); color: var(--chalk); margin-bottom: 8px; }
+.holding .big em { color: var(--signal); font-style: normal; }
+.holding p { color: var(--muted); max-width: 520px; margin: 12px auto; font-size: 15px; line-height: 1.5; }
+.pulse-dot {
+  display: inline-block; width: 11px; height: 11px; border-radius: 50%;
+  background: var(--signal); margin-right: 8px;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity: .35; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
+.count-pill {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+  padding: 12px 20px; border-radius: 999px; background: var(--ink-3); border: 1px solid var(--line);
+  font-size: 14px; color: var(--chalk);
+}
+.count-pill b { font-family: 'Anton'; font-size: 22px; color: var(--signal); }
+
+/* ---------- tabs ---------- */
+.tabs { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin-bottom: 24px; flex-wrap: wrap; }
+.tab {
+  font-family: 'Anton', sans-serif; font-size: 16px; letter-spacing: .03em; text-transform: uppercase;
+  padding: 12px 18px; background: none; border: none; color: var(--muted); cursor: pointer;
+  border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s;
+}
+.tab:hover { color: var(--chalk); }
+.tab.active { color: var(--signal); border-bottom-color: var(--signal); }
+
+.stub { padding: 50px 30px; text-align: center; color: var(--muted); }
+.stub h2 { color: var(--chalk); font-size: 30px; margin-bottom: 12px; }
+
+.foot { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
+.linkish { background:none;border:none;color:var(--muted);font:inherit;cursor:pointer;text-decoration:underline; }
