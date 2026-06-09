@@ -75,14 +75,26 @@ function PairingRow({ fixture, teams, session, onChange, onFlash }) {
     if (r?.ok) { onFlash('ok', `${fixture.slot} set.`); onChange() } else onFlash('err', r?.error || 'Failed.')
   }
 
+  const clear = async () => {
+    setBusy(true)
+    const r = await api.setKoTeams(session.player_id, fixture.id, null, null)
+    setBusy(false)
+    if (r?.ok) { setA(''); setB(''); onFlash('ok', `${fixture.slot} cleared.`); onChange() }
+    else onFlash('err', r?.error || 'Failed.')
+  }
+
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto 1fr auto', gap: 8, alignItems: 'center',
+    <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto 1fr auto auto', gap: 8, alignItems: 'center',
                   padding: '8px 12px', background: 'var(--ink-3)', border: '1px solid var(--line)', borderRadius: 9 }}>
       <span style={{ fontSize: 11, color: 'var(--muted)', width: 48 }}>{fixture.slot}</span>
       <TeamSelect value={a} onChange={setA} teams={teams} placeholder={fixture.team_a_placeholder} />
       <span style={{ color: 'var(--muted)', fontSize: 12 }}>v</span>
       <TeamSelect value={b} onChange={setB} teams={teams} placeholder={fixture.team_b_placeholder} />
       <button className="btn" style={{ width: 'auto', padding: '7px 12px', fontSize: 12 }} onClick={save} disabled={busy}>Save</button>
+      {(fixture.team_a_id || fixture.team_b_id) && (
+        <button onClick={clear} disabled={busy} title="Clear"
+                style={{ width: 26, height: 26, borderRadius: 7, background: 'transparent', color: 'var(--warn)', border: '1px solid var(--line)', cursor: 'pointer' }}>×</button>
+      )}
     </div>
   )
 }
